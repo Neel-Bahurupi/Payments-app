@@ -45,7 +45,7 @@ function Signup() {
     if (response.ok) {
       const token = data.token;
       login(token);
-      navigate("/dashboard");
+      navigate("/");
     } else {
       showToast(data.message);
     }

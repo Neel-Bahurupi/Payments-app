@@ -7,8 +7,10 @@ function Modal({ name, userId, showModal, onClose }) {
 
   async function handleInitiateTransfer(e) {
     e.preventDefault();
+    e.currentTarget.disabled = true;
 
     if (amount <= 0) {
+      e.currentTarget.disabled = false;
       return showToast("Please enter a valid amount");
     }
     const payload = {
@@ -33,6 +35,7 @@ function Modal({ name, userId, showModal, onClose }) {
         window.location.reload();
       }, 5000);
     } else {
+      e.currentTarget.disabled = false;
       showToast(message);
     }
   }
@@ -61,13 +64,13 @@ function Modal({ name, userId, showModal, onClose }) {
           <button
             onClick={handleInitiateTransfer}
             className="bg-green-400 text-white rounded-md p-1"
+            type="submit"
           >
             Initiate Transfer
           </button>
           <button
             className="absolute right-5 text-xl px-2 text-gray-600"
             onClick={onClose}
-            type="submit"
           >
             x
           </button>

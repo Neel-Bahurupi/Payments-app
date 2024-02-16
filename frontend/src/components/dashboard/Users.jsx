@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import User from "./User";
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from "../../config";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 function Users() {
   const [users, setUsers] = useState([]);
   const [searchField, setSearchField] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   async function fetchUsers() {
+    setLoading(true);
     const response = await fetch(`${apiUrl}user/bulk?filter=` + searchField, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -21,6 +24,7 @@ function Users() {
     } else if (response.status === 403) {
       navigate("/signin");
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -46,7 +50,9 @@ function Users() {
         onChange={(e) => setSearchField(e.target.value)}
       />
 
-      {users.length > 0 ? (
+      {loading ? (
+        <LoadingSpinner />
+      ) : users.length > 0 ? (
         users.map((user) => (
           <User
             key={user._id}

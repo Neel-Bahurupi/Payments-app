@@ -41,7 +41,7 @@ function Signin() {
 
     if (response.ok) {
       login(data.token);
-      navigate("/dashboard");
+      navigate("/");
     } else {
       showToast(data.message);
     }

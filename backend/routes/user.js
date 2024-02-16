@@ -154,4 +154,10 @@ router.get("/bulk", authMiddleware, async function (req, res) {
   res.json(users);
 });
 
+router.get("/test", function (req, res) {
+  res.json({
+    message: "API is working properly",
+  });
+});
+
 module.exports = router;
